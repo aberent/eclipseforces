@@ -54,6 +54,10 @@ public class ContestFetcherJob extends Job {
       IStatus status = parser.parseContest(monitor, contest, problems);
       if(!status.isOK())
         return status;
+      if(problems.isEmpty()) {
+    	  Utilities.showMessageDialog("No problems", "The contest has no problems available.\nHas it started?",true);
+    	  return Status.CANCEL_STATUS;
+      }
       
       monitor.subTask("Downloading problems");
       for(ProblemStatement problem : problems) {
